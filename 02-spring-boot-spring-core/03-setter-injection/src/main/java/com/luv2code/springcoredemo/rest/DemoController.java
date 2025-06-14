@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.luv2code.util.Coach;
+import com.luv2code.springcoredemo.common.Coach;
 
 @RestController
 public class DemoController {
@@ -13,14 +13,22 @@ public class DemoController {
     private Coach myCoach;
 
     // define a constructor for dependency injection
-    @Autowired
-    public DemoController (Coach theCoach) {
-        this.myCoach = theCoach;
-    }
+    // @Autowired
+    // public DemoController (Coach theCoach) {
+    //     this.myCoach = theCoach;
+    // }
 
     @GetMapping("/dailyworkout")
     public String getDailyWorkout() {
 
         return myCoach.getDailyWorkout();
     }
+
+    @Autowired
+    public void doSomeStuff(Coach theCoach) {
+        myCoach = theCoach;
+    }
+
+
+
 }
