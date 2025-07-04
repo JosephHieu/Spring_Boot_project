@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Phan17_ComprehensiveJavaStreams.iml" filepath="$PROJECT_DIR$/Phan17_ComprehensiveJavaStreams.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/05-spring-boot-rest-security.iml" filepath="$PROJECT_DIR$/.idea/05-spring-boot-rest-security.iml" />
     </modules>
   </component>
 </project>
