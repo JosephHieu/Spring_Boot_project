@@ -1,6 +1,7 @@
 package com.JosephHieu.cruddemo;
 
 import com.JosephHieu.cruddemo.dao.AppDAO;
+import com.JosephHieu.cruddemo.entity.Course;
 import com.JosephHieu.cruddemo.entity.Instructor;
 import com.JosephHieu.cruddemo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
@@ -8,18 +9,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CruddemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CruddemoApplication.class, args);
+
 	}
 
 	@Bean
 	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
 
 		return runner -> {
-			 createInstructor(appDAO);
+//			 createInstructor(appDAO);
 
 //			findInstructor(appDAO);
 
@@ -28,8 +32,80 @@ public class CruddemoApplication {
 //			findInstructorDetail(appDAO);
 
 //			deleteInstructorDetail(appDAO);
+
+//			createInstructorWithCourse(appDAO);
+
+//			findInstructorWithCourses(appDAO);
+
+			findCoursesForInstructor(appDAO);
 		};
 	}
+
+	private void findCoursesForInstructor(AppDAO appDAO) {
+
+		int theId = 3;
+
+		// find instructor
+		System.out.println("Finding instructor id: " + theId);
+
+		Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+		System.out.println("tempInstructor: " + tempInstructor);
+
+		// find courses for instructor
+		System.out.println("Finding courses for instructor id: " + theId);
+		List<Course> courses = appDAO.findCoursesByInstructorID(theId);
+
+		tempInstructor.setCourses(courses);
+
+		System.out.println("the associated courses: " + tempInstructor.getCourses());
+	}
+
+	private void findInstructorWithCourses(AppDAO appDAO) {
+
+		int theId = 3;
+		System.out.println("Finding instructor id: " + theId);
+
+		Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+		System.out.println("tempInstructor: " + tempInstructor);
+		System.out.println("the associated courses: " + tempInstructor.getCourses());
+
+		System.out.println("Done!");
+	}
+
+	private void createInstructorWithCourse(AppDAO appDAO) {
+		// create the instructor
+		Instructor tempInstructor = new Instructor("Hieu", "Hoang", "hieu@gmail.com");
+
+		// create the instructor detail
+		InstructorDetail tempInstructorDetail =
+				new InstructorDetail(
+						"http://www.josephHieu.vn/youtubeok",
+						"Calisthenic"
+				);
+
+		// associate the objects
+		tempInstructor.setInstructorDetail(tempInstructorDetail);
+
+		// create some courses
+		Course tempCourse1 = new Course("Air Guitar - The Ultimate Guide");
+		Course tempCourse2 = new Course("The Pinball Masterclass");
+
+		// add course to instructor
+		tempInstructor.addCourse(tempCourse1, tempCourse2);
+
+		// save the instructor
+		//
+ 		// NOTE: this will ALSO save the courses
+		// because of CascadeType.PERSIST
+		System.out.println("Saving instructor: " + tempInstructor);
+		System.out.println("The courses: " + tempInstructor.getCourses());
+		appDAO.save(tempInstructor);
+
+		System.out.println("Done!");
+	}
+
 
 	private void deleteInstructorDetail(AppDAO appDAO) {
 
