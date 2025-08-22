@@ -39,8 +39,48 @@ public class CruddemoApplication {
 
 //			findCoursesForInstructor(appDAO);
 
-			findInstructorWithCoursesJoinFetch(appDAO);
+//			findInstructorWithCoursesJoinFetch(appDAO);
+
+//			updateInstructor(appDAO);
+
+//			updateCourse(appDAO);
+
+//			deleteInstructor(appDAO);
+
+			deleteCourse(appDAO);
 		};
+	}
+
+	private void deleteCourse(AppDAO appDAO) {
+		int theId = 10;
+		System.out.println("Deleting course id: " + theId);
+		appDAO.deleteCourseById(theId);
+		System.out.println("Done!");
+	}
+
+	private void updateCourse(AppDAO appDAO) {
+		int theId = 10;
+		System.out.println("Finding course id: " + theId);
+		Course tempCourse = appDAO.findCourseById(theId);
+
+		System.out.println("Updating course id: " + theId);
+		tempCourse.setTitle("Python Masterclass");
+
+		appDAO.updateCourse(tempCourse);
+		System.out.println("Done");
+
+	}
+
+	private void updateInstructor(AppDAO appDAO) {
+		int theId = 1;
+		System.out.println("Finding instructor id: " + theId);
+		Instructor tempInstructor = appDAO.findInstructorById(theId);
+
+		System.out.println("Updating instructor id: " + theId);
+		tempInstructor.setLastName("Nguyen");
+
+		appDAO.update(tempInstructor);
+		System.out.println("Done");
 	}
 
 	private void findInstructorWithCoursesJoinFetch(AppDAO appDAO) {
@@ -146,9 +186,9 @@ public class CruddemoApplication {
 
 	private void deleteInstructor(AppDAO appDAO) {
 
-		int theId = 1;
+		int theId = 3;
 		System.out.println("Deleting instructor id: " + theId);
-		appDAO.deleteInstructorByID(1);
+		appDAO.deleteInstructorByID(theId);
 		System.out.println("Delete Successfully");
 	}
 
