@@ -26,7 +26,7 @@ public class AopdemoApplication {
 	private void demoTheBeforeAdvice(AccountDAO theAccountDAO, MembershipDAO theMembershipDAO) {
 
 		// call the business method
-		theAccountDAO.addAccount(new Account(), true);
+		theAccountDAO.addAccount(new Account("Hieu", "Super Master"), true);
 		theAccountDAO.doWork();
 
 		// call the accountdao getter/setter methods
