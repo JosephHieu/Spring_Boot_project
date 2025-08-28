@@ -28,7 +28,17 @@ public class MyDemoLoggingAspect {
         long begin = System.currentTimeMillis();
 
         // now, let's execute the method
-        Object result = theProceedingJoinPoint.proceed();
+        Object result = null;
+
+        try {
+            result = theProceedingJoinPoint.proceed();
+        } catch (Exception e) {
+            // log the exception
+            System.out.println(e.getMessage());
+
+            // give user a custom message
+            result = "Major accident! But no worries, your private AOP helicopter is on the way!";
+        }
 
         // get end timestamp
         long end = System.currentTimeMillis();
